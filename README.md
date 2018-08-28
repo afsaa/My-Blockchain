@@ -1,8 +1,15 @@
 # My-Blockchain
 Ejercicio sencillo para entender como funciona blockchain.
 
-## Ejecución
-Para poder ejecutar el código es necesario instalar **NodeJS** y por medio de npm instalar la librería **crypto-js** de la siguiente forma:
+## Pre-requisitos
+Es necesario instalar previamente NodeJS.
+Ademas haber instalado npm por medio de NodeJS de la siguiente manera:
 ```
 npm install crypto-js
+```
+
+## Ejecución
+Ejecutamos el código en la terminal de la siguiente forma:
+```
+node blockchain.js
 ```
