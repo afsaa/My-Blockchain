@@ -1,4 +1,4 @@
-const SHA256 = require('crypto-js');
+const SHA256 = require('crypto-js/sha256');
 
 class block {
     constructor(index, timestamp, prevHash = '', data){
@@ -6,10 +6,36 @@ class block {
         this.timestamp = timestamp;
         this.prevHash = prevHash;
         this.data = data;
-        this.hash = '';
+        this.hash = this.calculateHash();
     }
 
     calculateHash(){
-        return SHA256(this.index + this.prevHash + this.timestamp +JSON.stringify(this.data)).toString();
+        return SHA256(this.index + this.prevHash + this.timestamp + JSON.stringify(this.data)).toString();
     }
 }
+
+class blockchain {
+  constructor() {
+    this.chain = [this.createGenesisBlock()];
+  }
+
+  createGenesisBlock(){
+    return new block(0, "01/01/2018", "0", "Genesis block");
+  }
+
+  getLatestBlock(){
+      return this.chain[this.chain.length - 1];
+  }
+
+  addBlock(newBlock){
+      newBlock.prevHash = this.getLatestBlock().hash;
+      newBlock.hash = newBlock.calculateHash();
+      this.chain.push(newBlock);
+  }
+}
+
+let patacoin = new blockchain();
+patacoin.addBlock(new block(1, "30/08/2018", '',{ amount: 4}));
+patacoin.addBlock(new block(2, "31/08/2018", '',{ amount: 10}));
+
+console.log(JSON.stringify(patacoin, null, 4));
